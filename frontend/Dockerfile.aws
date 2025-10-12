@@ -1,5 +1,11 @@
-FROM node:16
+FROM node:20
 WORKDIR /usr/src
+
+# Install netcat for connection testing
+RUN apt-get update && apt-get install -y netcat-openbsd && rm -rf /var/lib/apt/lists/*
+
+COPY wait-for-it.sh /usr/src/wait-for-it.sh
+RUN chmod +x /usr/src/wait-for-it.sh
 
 COPY frontend ./frontend
 COPY .wilco ./.wilco
